@@ -1,20 +1,21 @@
 <?php 
-	session_start();
-	include '../config.php';
-	$n=count($_POST["datum"]);
-	if($n>=1){
-		$sql="";
+	//print_r($_POST);
+	include 'config.php';
+	$n=count($_POST["kod"]);
+	if($n>=1)
+	{
 		for($i=0;$i<$n;$i++)
-			if(trim($_POST["datum"][$i])!='')
-				$sql.="insert into szabadsag  values ('{$_POST["datum"][$i]}');";
-		try{
-			$stmt=$db->exec($sql);
-			$_SESSION['save-date']="sikeres mentes";
-			echo "sikeres mentes";
-		}catch(Exception $e){
-			$_SESSION['save-date']="Hiba !!!";
-			echo "hiba";
-		}		
-	}	
-
+		{
+			if(trim($_POST["kod"][$i])!='')
+			{
+				$sql="insert into kategoriak  values ('{$_POST["kod"][$i]}','leiras');";
+				$stmt=$db->exec($sql);
+			}
+		}
+		echo "siekres insert";
+	}
+	else
+	{
+		echo "hiba";
+	}
 ?>
