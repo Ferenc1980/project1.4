@@ -1,7 +1,7 @@
 <?php
 ob_start();
 
-if(!isset($_SESSION["user"])=="admin")
+if(!preg_match('/\badminisztrator\b/', $_SESSION['user']))
     header("Location:index.php");
 
 	require_once 'config.php';

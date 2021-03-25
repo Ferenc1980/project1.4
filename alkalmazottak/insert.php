@@ -1,11 +1,10 @@
 <?php
 ob_start();
 $nev=$beosztas=$msg=$datum="";
-$azon=0;
 //print_r($_POST);
 if(isset($_POST['mentes']) ){
     extract($_POST);
-    $sql="insert into szemelyek values ({$azon},'{$nev}','{$beosztas}','{$datum}','{$jog}','{$jelszo}')";
+    $sql="insert into szemelyek values (null,'{$nev}','{$beosztas}','{$datum}','{$jog}','{$jelszo}')";
     try{
         $stmt=$db->exec($sql);
         $msg="sikeres adatbeiras"; 
@@ -30,12 +29,7 @@ if(isset($_POST['mentes']) ){
         <div class="row m-1 p-2">   
             <div class="col-12">
                 <form action="" method="post" class="form-horizontal">
-                     <div class="form-group row">
-                        <label  class="control-label col-sm-5"for="azon">Személyes azonosító:</label>
-                        <div class="col-sm-7">
-                            <input type="number" name="azon" class="form-control" value="<?=$azon>0 ? $azon : ""?>" id="azon" required>
-                        </div>
-                    </div>
+                     
                     <div class="form-group row ">
                         <label class="control-label col-sm-5" for="">Az alkalmazott neve:</label>
                         <div class="col-sm-7">

@@ -2,6 +2,7 @@
 	include "config.php";
 ?>
 <h4 class='page-header'><i class="fa fa-users"></i> Student Details</h4>
+<div class="row justify-content-end"><a class="btn btn-primary  text-white" href="index.php?p=szabadsag/szabadsagView.php"> Felahasználói nézet</a></div>
 <table class="table">
 		<tr>
 		

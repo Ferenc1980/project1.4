@@ -3,16 +3,16 @@ require_once "config.php";
 
 if(isset($_POST['beSubmit'])){
 	extract($_POST);
-	$sql="select azonosito,nev,jog from szemelyek where jog='{$azonosito}' and jelszo='{$password}'";
+	$sql="select azonosito,nev,jog from szemelyek where nev='{$nev}' and jelszo='{$password}'";
 	$stmt=$db->query($sql);
 	if($stmt->rowCount()==1){
 		$row=$stmt->fetch();
-		$role=$azonosito=="admin" ? "adminisztrator" : "";
+		$role=$row["jog"]=="admin" ? "adminisztrator" : "";
 		$_SESSION['user']=$row['nev']." ".$role;
 		$_SESSION['id']=$row['azonosito'];
 		unset($_SESSION['msg']);
 	}else{
-		$_SESSION['msg']=$_POST['azonosito']."- Rossz azonosító/jelszó páros!";
+		$_SESSION['msg']=$_POST['nev']."- Rossz név/jelszó páros!";
 		unset($_SESSION['user']);
 	}
 	header('Location:index.php');
@@ -28,7 +28,7 @@ if(isset($_POST['kiSubmit'])){
     <form class="form-signin p-2" method="post">
 	   <h1 class="h3 mb-3 font-weight-normal text-center">Bejelentkezés</h1>
       <label for="inputEmail" class="sr-only">Név</label>
-      <input type="text" id="fnev" name="azonosito" class="form-control mb-2" placeholder="belépési azonosító" required autofocus>
+      <input type="text" id="fnev" name="nev" class="form-control mb-2" placeholder="Add meg a neved" required autofocus>
       <label for="password" class="sr-only">Password</label>
       <input type="password" id="password" name="password" class="form-control mb-2" placeholder="jelszo" required>
       <button class="btn btn-lg btn-primary btn-block" name="beSubmit" type="submit">Bejelentkezés</button>

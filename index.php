@@ -1,6 +1,15 @@
 <?php
  session_start();
  include "config.php";
+
+ function currentUrl() {
+  $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
+  $host     = $_SERVER['HTTP_HOST'];
+  $script   = $_SERVER['SCRIPT_NAME'];
+  $params   = $_SERVER['QUERY_STRING'];
+
+  return $protocol . '://' . $host . $script . '?' . $params;
+}
 ?>  
 
 <!DOCTYPE html>
@@ -22,7 +31,9 @@
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <link rel="stylesheet" href="myStyle.css">
   <script src="menu.js"></script>
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="kategoria/style.css">
+  
 </head>
 
 <body>
@@ -37,7 +48,7 @@
         <a href="index.php?p=alkalmazottak.php" class="list-group-item list-group-item-action bg-light">Alkalmazottak</a>
         <a href="index.php?p=szabadsag/szabadsag.php" class="list-group-item list-group-item-action bg-light">Szabadságnapok</a>
         <a href="index.php?p=unnepek/unnepek.php" class="list-group-item list-group-item-action bg-light">Ünnepnapok</a>
-        <a href="index.php?p=kategoria.php" class="list-group-item list-group-item-action bg-light">Kategóriák</a>
+        <a href="index.php?p=kategoria/kategoria.php" class="list-group-item list-group-item-action bg-light">Kategóriák</a>
         <a href="index.php?p=jelenlet.php" class="list-group-item list-group-item-action bg-light">Jelenlét</a>
       </div>
     </div>
@@ -82,9 +93,10 @@
                 case 'jelenlet.php':
                   $program=isset($_SESSION['user']) && preg_match('/\badminisztrator\b/', $_SESSION['user']) ? 'jelenlet.php' : 'jelenlet/jelenletView.php';
                   break;
-                /*case ...:
-                  ...;//hasonlóan meg lehet oldani más modulnál is
-                  break;*/
+                case "szabadsag/szabadsag.php":
+                  $program=isset($_SESSION['user']) && preg_match('/\badminisztrator\b/', $_SESSION['user']) ? 'szabadsag/szabadsag.php' : 'szabadsag/szabadsagView.php';
+                  
+                  break;
                }
                include $program; 
             }else
